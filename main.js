@@ -1,28 +1,21 @@
-import http from 'http'
-import fs from 'fs'
+const path = require('path')
+const express = require('express')
 
-http
-  .createServer((req, res) => {
-    if (req.url === '/favicon.ico') {
-      res.writeHead(204)
-      res.end()
-      return
-    }
+const app = express()
+app.listen(8080)
 
-    res.writeHead(200, {
-      'content-type': 'text/html',
-    })
+app.get('/', (_, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'))
+})
 
-    const urlFile = req.url === '/' ? '/index' : req.url
+app.get('/about', (_, res) => {
+  res.sendFile(path.join(__dirname, 'about.html'))
+})
 
-    fs.readFile('.' + urlFile + '.html', 'utf8', (err, data) => {
-      if (err) {
-        fs.readFile('./404.html', 'utf8', (_, data) => {
-          res.end(data)
-        })
-        return
-      }
-      res.end(data)
-    })
-  })
-  .listen(8080)
+app.get('/contact-me', (_, res) => {
+  res.sendFile(path.join(__dirname, 'contact-me.html'))
+})
+
+app.use((_, res) => {
+  res.sendFile(path.join(__dirname, '404.html'))
+})

@@ -1,6 +1,5 @@
 {
   "name": "node",
-  "type": "module",
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
@@ -12,5 +11,8 @@
   "description": "",
   "devDependencies": {
     "eslint": "^9.24.0"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
   }
 }
